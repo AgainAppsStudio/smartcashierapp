@@ -327,6 +327,17 @@
                     </button>
                 </div>
 
+                <!-- Inventory Search and filters -->
+                <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-3 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="relative flex-1">
+                        <i data-lucide="search" class="absolute left-3.5 top-3 text-slate-400 w-5 h-5"></i>
+                        <input type="text" id="inventory-search-input" oninput="loadProductsTable()" class="w-full pl-11 pr-4 py-2 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600" placeholder="Search product name, category, or SKU...">
+                    </div>
+                    <select id="inventory-category-select" onchange="loadProductsTable()" class="rounded-xl border border-slate-200 px-4 py-2 text-sm bg-white focus:outline-none focus:border-emerald-600">
+                        <option value="ALL">All Categories</option>
+                    </select>
+                </div>
+
                 <!-- Products Table -->
                 <div class="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
                     <table class="w-full text-left text-sm text-slate-600">
@@ -358,6 +369,12 @@
                     </button>
                 </div>
 
+                <!-- Customer Search bar -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm relative">
+                    <i data-lucide="search" class="absolute left-7 top-7 text-slate-400 w-5 h-5"></i>
+                    <input type="text" id="customers-search-input" oninput="loadCustomersGrid()" class="w-full pl-12 pr-4 py-2.5 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600" placeholder="Search customer name, email, or mobile...">
+                </div>
+
                 <!-- Customers Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="customers-grid">
                     <!-- Cards filled dynamically -->
@@ -372,6 +389,17 @@
                         <i data-lucide="plus" class="w-4 h-4"></i>
                         <span>Record Expense</span>
                     </button>
+                </div>
+
+                <!-- Expenses Search and filters -->
+                <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-3 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                    <div class="relative flex-1">
+                        <i data-lucide="search" class="absolute left-3.5 top-3 text-slate-400 w-5 h-5"></i>
+                        <input type="text" id="expenses-search-input" oninput="loadExpensesTable()" class="w-full pl-11 pr-4 py-2 text-sm rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600" placeholder="Search expense description, notes, or category...">
+                    </div>
+                    <select id="expenses-category-select" onchange="loadExpensesTable()" class="rounded-xl border border-slate-200 px-4 py-2 text-sm bg-white focus:outline-none focus:border-emerald-600">
+                        <option value="ALL">All Categories</option>
+                    </select>
                 </div>
 
                 <!-- Expenses Table -->
@@ -435,10 +463,105 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- ENTERPRISE DATA EXPORT SERVICES -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <i data-lucide="download" class="w-5 h-5 text-emerald-700"></i>
+                        <h4 class="font-bold text-slate-800 text-sm">Enterprise CSV Data Export Utilities</h4>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-6">Download your local relational databases directly as offline spreadsheets ready for Excel, Google Sheets, or LibreOffice!</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <button onclick="exportInvoicesToCSV()" class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100 hover:border-emerald-200 transition text-center space-y-2 group">
+                            <i data-lucide="file-spreadsheet" class="w-8 h-8 text-emerald-700 group-hover:scale-110 transition"></i>
+                            <span class="text-xs font-bold text-slate-800">Export Invoices</span>
+                            <span class="text-[10px] text-slate-400">Sales records ledger</span>
+                        </button>
+                        <button onclick="exportExpensesToCSV()" class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100 hover:border-emerald-200 transition text-center space-y-2 group">
+                            <i data-lucide="receipt" class="w-8 h-8 text-amber-700 group-hover:scale-110 transition"></i>
+                            <span class="text-xs font-bold text-slate-800">Export Expenses</span>
+                            <span class="text-[10px] text-slate-400">Operational cost list</span>
+                        </button>
+                        <button onclick="exportProductsToCSV()" class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100 hover:border-emerald-200 transition text-center space-y-2 group">
+                            <i data-lucide="box" class="w-8 h-8 text-indigo-700 group-hover:scale-110 transition"></i>
+                            <span class="text-xs font-bold text-slate-800">Export Products</span>
+                            <span class="text-[10px] text-slate-400">Inventory SKU catalogue</span>
+                        </button>
+                        <button onclick="exportCustomersToCSV()" class="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 bg-slate-50 hover:bg-slate-100 hover:border-emerald-200 transition text-center space-y-2 group">
+                            <i data-lucide="users" class="w-8 h-8 text-blue-700 group-hover:scale-110 transition"></i>
+                            <span class="text-xs font-bold text-slate-800">Export Customers</span>
+                            <span class="text-[10px] text-slate-400">Loyalty registry lists</span>
+                        </button>
+                    </div>
+                </div>
             </section>
 
             <!-- TAB 7: SETTINGS & GOOGLE DRIVE BACKUP -->
             <section id="tab-settings" class="hidden max-w-4xl space-y-6">
+                <!-- SHOP INFORMATION PROFILE SETTINGS -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="store" class="w-6 h-6 text-emerald-700"></i>
+                        <h4 class="font-bold text-slate-800 text-base">Store / Business Information Profile</h4>
+                    </div>
+                    <p class="text-xs text-slate-400">Configure your store logo details. These details will be dynamically printed on all customer paper receipts and professional invoice PDFs!</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Shop Name</label>
+                            <input type="text" id="shop-profile-name" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-emerald-600" placeholder="e.g. My Retail Shop">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Physical Address</label>
+                            <input type="text" id="shop-profile-address" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-emerald-600" placeholder="e.g. 101 Retail Ave, Suite #2">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Contact Mobile Number</label>
+                            <input type="text" id="shop-profile-mobile" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:border-emerald-600" placeholder="e.g. +1 (555) 000-1234">
+                        </div>
+                    </div>
+                    <button onclick="saveShopProfile()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 px-5 rounded-xl text-xs transition">
+                        Save Shop Profile Information
+                    </button>
+                </div>
+
+                <!-- LOCAL DATABASE FILES BACKUP / OFFLINE RESTORE -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div class="space-y-1">
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="database-backup" class="w-6 h-6 text-emerald-700"></i>
+                                <h4 class="font-bold text-slate-800 text-base">Offline Manual JSON Backup & Recovery</h4>
+                            </div>
+                            <p class="text-xs text-slate-400">Preserve your database manually! Download a single JSON backup file to your device or restore previous states instantly.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div class="border border-slate-100 rounded-2xl p-4 flex flex-col justify-between space-y-4 bg-slate-50/50">
+                            <div>
+                                <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Export State Data</h5>
+                                <p class="text-xs text-slate-400 mt-1">Saves all products, inventory levels, sales invoices ledger, CRM customer records, and expenses directly into a single offline `.json` backup file.</p>
+                            </div>
+                            <button onclick="downloadLocalBackup()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition flex items-center justify-center space-x-2">
+                                <i data-lucide="download-cloud" class="w-4 h-4"></i>
+                                <span>Download Local Database File</span>
+                            </button>
+                        </div>
+                        <div class="border border-slate-100 rounded-2xl p-4 flex flex-col justify-between space-y-4 bg-slate-50/50">
+                            <div>
+                                <h5 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Import State Data</h5>
+                                <p class="text-xs text-slate-400 mt-1">Overwrites the browser's local storage with records loaded from a previously exported `.json` file. Safe, rapid local database recovery.</p>
+                            </div>
+                            <div>
+                                <input type="file" id="local-restore-file" accept=".json" onchange="restoreFromLocalFile(event)" class="hidden">
+                                <button onclick="document.getElementById('local-restore-file').click()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs transition flex items-center justify-center space-x-2">
+                                    <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                                    <span>Select & Import JSON Backup File</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Backup Panel Header -->
                 <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
                     <div class="p-6 bg-slate-900 text-slate-100 flex items-center justify-between">
@@ -621,7 +744,7 @@
     <div id="product-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl w-full max-w-lg overflow-hidden flex flex-col shadow-2xl">
             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 class="font-extrabold text-slate-800 text-base">Add New Store Product</h4>
+                <h4 class="font-extrabold text-slate-800 text-base" id="product-modal-title">Add New Store Product</h4>
                 <button onclick="closeProductModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div class="p-6 space-y-4 overflow-y-auto max-h-[70vh]">
@@ -662,7 +785,7 @@
             </div>
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end space-x-3">
                 <button onclick="closeProductModal()" class="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-semibold hover:bg-slate-50">Cancel</button>
-                <button onclick="saveProduct()" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold shadow-lg shadow-emerald-700/10">Save Product</button>
+                <button onclick="saveProduct()" id="save-product-btn" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold shadow-lg shadow-emerald-700/10">Save Product</button>
             </div>
         </div>
     </div>
@@ -671,7 +794,7 @@
     <div id="customer-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl w-full max-w-md overflow-hidden flex flex-col shadow-2xl">
             <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                <h4 class="font-extrabold text-slate-800 text-base">Register Customer Account</h4>
+                <h4 class="font-extrabold text-slate-800 text-base" id="customer-modal-title">Register Customer Account</h4>
                 <button onclick="closeCustomerModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div class="p-6 space-y-4">
@@ -706,7 +829,7 @@
             </div>
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end space-x-3">
                 <button onclick="closeCustomerModal()" class="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-semibold hover:bg-slate-50">Cancel</button>
-                <button onclick="saveCustomer()" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold shadow-lg shadow-emerald-700/10">Register Customer</button>
+                <button onclick="saveCustomer()" id="save-customer-btn" class="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-sm font-bold shadow-lg shadow-emerald-700/10">Register Customer</button>
             </div>
         </div>
     </div>
@@ -822,7 +945,7 @@
         // Tab switching controller
         function switchTab(tabId) {
             // Hide all tab screens
-            document.querySelectorAll('main > div > section').forEach(section => {
+            document.querySelectorAll('#tab-content-container > section').forEach(section => {
                 section.classList.add('hidden');
             });
             // Show requested tab screen
@@ -853,9 +976,15 @@
             // Re-render corresponding data
             if (tabId === 'dashboard') loadDashboard();
             if (tabId === 'pos') loadPOSCatalog();
-            if (tabId === 'products') loadProductsTable();
+            if (tabId === 'products') {
+                populateInventoryCategories();
+                loadProductsTable();
+            }
             if (tabId === 'customers') loadCustomersGrid();
-            if (tabId === 'expenses') loadExpensesTable();
+            if (tabId === 'expenses') {
+                populateExpensesCategories();
+                loadExpensesTable();
+            }
             if (tabId === 'reports') loadReportsData();
             if (tabId === 'settings') loadSettingsPage();
         }
@@ -1687,20 +1816,48 @@
         }
 
         // TAB 3: INVENTORY CONTROLLER
+        let editingProductId = null;
+
+        function populateInventoryCategories() {
+            const selectEl = document.getElementById('inventory-category-select');
+            if (!selectEl) return;
+            const currentVal = selectEl.value;
+            selectEl.innerHTML = '<option value="ALL">All Categories</option>';
+            const cats = [...new Set(store.products.map(p => p.category).filter(Boolean))];
+            cats.forEach(c => {
+                selectEl.innerHTML += `<option value="${c}">${c}</option>`;
+            });
+            if (cats.includes(currentVal)) {
+                selectEl.value = currentVal;
+            }
+        }
+
         function loadProductsTable() {
             const table = document.getElementById('inventory-table-rows');
             table.innerHTML = '';
 
-            if (store.products.length === 0) {
+            const query = document.getElementById('inventory-search-input')?.value.toLowerCase() || '';
+            const cat = document.getElementById('inventory-category-select')?.value || 'ALL';
+
+            const filtered = store.products.filter(p => {
+                const matchQuery = p.name.toLowerCase().includes(query) || 
+                                   p.sku.toLowerCase().includes(query) || 
+                                   (p.barcode || '').includes(query) ||
+                                   p.category.toLowerCase().includes(query);
+                const matchCat = cat === 'ALL' || p.category === cat;
+                return matchQuery && matchCat;
+            });
+
+            if (filtered.length === 0) {
                 table.innerHTML = `
                     <tr>
-                        <td colspan="7" class="px-6 py-12 text-center text-slate-400 text-sm">No items configured in local database. Add products to get started.</td>
+                        <td colspan="7" class="px-6 py-12 text-center text-slate-400 text-sm">No items matching current product filters.</td>
                     </tr>
                 `;
                 return;
             }
 
-            store.products.forEach(p => {
+            filtered.forEach(p => {
                 const isLow = p.quantity <= 15;
                 table.innerHTML += `
                     <tr class="hover:bg-slate-50 transition duration-150">
@@ -1719,7 +1876,8 @@
                                 ${p.quantity} ${p.unit}s
                             </span>
                         </td>
-                        <td class="px-6 py-4 text-right">
+                        <td class="px-6 py-4 text-right flex items-center justify-end space-x-2">
+                            <button onclick="showEditProductModal('${p.id}')" class="text-xs font-bold text-emerald-700 hover:text-emerald-900 transition">Edit</button>
                             <button onclick="deleteProduct('${p.id}')" class="text-xs font-bold text-rose-600 hover:text-rose-800 transition">Delete</button>
                         </td>
                     </tr>
@@ -1728,45 +1886,14 @@
         }
 
         function showAddProductModal() {
+            editingProductId = null;
+            document.getElementById('product-modal-title').innerText = "Add New Store Product";
+            document.getElementById('save-product-btn').innerText = "Save Product";
+            clearProductInputs();
             document.getElementById('product-modal').classList.remove('hidden');
         }
 
-        function closeProductModal() {
-            document.getElementById('product-modal').classList.add('hidden');
-        }
-
-        function saveProduct() {
-            const name = document.getElementById('prod-name').value;
-            const category = document.getElementById('prod-category').value;
-            const sku = document.getElementById('prod-sku').value;
-            const barcode = document.getElementById('prod-barcode').value;
-            const purchase = parseFloat(document.getElementById('prod-purchase').value) || 0;
-            const selling = parseFloat(document.getElementById('prod-selling').value) || 0;
-            const quantity = parseInt(document.getElementById('prod-quantity').value) || 0;
-
-            if (!name || !sku) {
-                alert("Please fill in Product Name and SKU fields.");
-                return;
-            }
-
-            const newProd = {
-                id: Date.now().toString(),
-                name,
-                sku,
-                category: category || "General",
-                purchasePrice: purchase,
-                sellingPrice: selling,
-                quantity,
-                unit: "unit",
-                barcode: barcode || Date.now().toString().slice(-8)
-            };
-
-            store.products.push(newProd);
-            saveLocalDatabase();
-            closeProductModal();
-            loadProductsTable();
-
-            // Clear inputs
+        function clearProductInputs() {
             document.getElementById('prod-name').value = '';
             document.getElementById('prod-category').value = '';
             document.getElementById('prod-sku').value = '';
@@ -1776,25 +1903,110 @@
             document.getElementById('prod-quantity').value = '0';
         }
 
+        function showEditProductModal(id) {
+            const p = store.products.find(prod => prod.id === id);
+            if (!p) return;
+
+            editingProductId = id;
+            document.getElementById('product-modal-title').innerText = "Edit Product Details";
+            document.getElementById('save-product-btn').innerText = "Update Product";
+
+            document.getElementById('prod-name').value = p.name;
+            document.getElementById('prod-category').value = p.category;
+            document.getElementById('prod-sku').value = p.sku;
+            document.getElementById('prod-barcode').value = p.barcode || '';
+            document.getElementById('prod-purchase').value = p.purchasePrice.toFixed(2);
+            document.getElementById('prod-selling').value = p.sellingPrice.toFixed(2);
+            document.getElementById('prod-quantity').value = p.quantity;
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            editingProductId = null;
+        }
+
+        function saveProduct() {
+            const name = document.getElementById('prod-name').value.trim();
+            const category = document.getElementById('prod-category').value.trim();
+            const sku = document.getElementById('prod-sku').value.trim();
+            const barcode = document.getElementById('prod-barcode').value.trim();
+            const purchase = parseFloat(document.getElementById('prod-purchase').value) || 0;
+            const selling = parseFloat(document.getElementById('prod-selling').value) || 0;
+            const quantity = parseInt(document.getElementById('prod-quantity').value) || 0;
+
+            if (!name || !sku) {
+                alert("Please fill in Product Name and SKU fields.");
+                return;
+            }
+
+            if (editingProductId) {
+                const p = store.products.find(prod => prod.id === editingProductId);
+                if (p) {
+                    p.name = name;
+                    p.category = category || "General";
+                    p.sku = sku;
+                    p.barcode = barcode || p.barcode || Date.now().toString().slice(-8);
+                    p.purchasePrice = purchase;
+                    p.sellingPrice = selling;
+                    p.quantity = quantity;
+                }
+                editingProductId = null;
+                alert("Product details updated successfully!");
+            } else {
+                const newProd = {
+                    id: Date.now().toString(),
+                    name,
+                    sku,
+                    category: category || "General",
+                    purchasePrice: purchase,
+                    sellingPrice: selling,
+                    quantity,
+                    unit: "unit",
+                    barcode: barcode || Date.now().toString().slice(-8)
+                };
+                store.products.push(newProd);
+                alert("New product registered successfully!");
+            }
+
+            saveLocalDatabase();
+            closeProductModal();
+            populateInventoryCategories();
+            loadProductsTable();
+            clearProductInputs();
+        }
+
         function deleteProduct(id) {
             if (confirm("Are you sure you want to delete this product?")) {
                 store.products = store.products.filter(p => p.id !== id);
                 saveLocalDatabase();
+                populateInventoryCategories();
                 loadProductsTable();
             }
         }
 
         // TAB 4: CUSTOMERS CONTROLLER
+        let editingCustomerId = null;
+
         function loadCustomersGrid() {
             const grid = document.getElementById('customers-grid');
             grid.innerHTML = '';
 
-            if (store.customers.length === 0) {
-                grid.innerHTML = '<div class="col-span-3 text-center text-slate-400 py-12 text-sm">No customers registered yet.</div>';
+            const query = document.getElementById('customers-search-input')?.value.toLowerCase() || '';
+
+            const filtered = store.customers.filter(c => {
+                return c.name.toLowerCase().includes(query) || 
+                       (c.mobile || '').toLowerCase().includes(query) || 
+                       (c.email || '').toLowerCase().includes(query);
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="col-span-3 text-center text-slate-400 py-12 text-sm">No customers matching current search criteria.</div>';
                 return;
             }
 
-            store.customers.forEach(c => {
+            filtered.forEach(c => {
                 grid.innerHTML += `
                     <div onclick="viewCustomerHistory('${c.id}')" class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between cursor-pointer group">
                         <div class="space-y-3">
@@ -1818,6 +2030,7 @@
                                 <span class="text-xs text-emerald-700 font-bold group-hover:underline flex items-center mr-1">
                                     History <i data-lucide="chevron-right" class="w-3.5 h-3.5 ml-0.5"></i>
                                 </span>
+                                <button onclick="event.stopPropagation(); showEditCustomerModal('${c.id}')" class="text-xs font-bold text-emerald-700 hover:text-emerald-900 transition mr-2">Edit</button>
                                 <button onclick="event.stopPropagation(); deleteCustomer('${c.id}')" class="text-xs font-bold text-rose-600 hover:text-rose-800 transition">Delete</button>
                             </div>
                         </div>
@@ -1828,49 +2041,89 @@
         }
 
         function showAddCustomerModal() {
+            editingCustomerId = null;
+            document.getElementById('customer-modal-title').innerText = "Register Customer Account";
+            document.getElementById('save-customer-btn').innerText = "Register Customer";
+            clearCustomerInputs();
             document.getElementById('customer-modal').classList.remove('hidden');
         }
 
-        function closeCustomerModal() {
-            document.getElementById('customer-modal').classList.add('hidden');
-        }
-
-        function saveCustomer() {
-            const name = document.getElementById('cust-name').value;
-            const mobile = document.getElementById('cust-mobile').value;
-            const email = document.getElementById('cust-email').value;
-            const credit = parseFloat(document.getElementById('cust-credit').value) || 0;
-            const address = document.getElementById('cust-address').value;
-            const notes = document.getElementById('cust-notes').value;
-
-            if (!name || !mobile) {
-                alert("Please fill in Customer Name and Mobile fields.");
-                return;
-            }
-
-            const newCust = {
-                id: Date.now().toString(),
-                name,
-                mobile,
-                email: email || "",
-                address,
-                notes: notes || "",
-                loyaltyPoints: 0,
-                storeCredit: credit
-            };
-
-            store.customers.push(newCust);
-            saveLocalDatabase();
-            closeCustomerModal();
-            loadCustomersGrid();
-
-            // Clear inputs
+        function clearCustomerInputs() {
             document.getElementById('cust-name').value = '';
             document.getElementById('cust-mobile').value = '';
             document.getElementById('cust-email').value = '';
             document.getElementById('cust-credit').value = '0.00';
             document.getElementById('cust-address').value = '';
             document.getElementById('cust-notes').value = '';
+        }
+
+        function showEditCustomerModal(id) {
+            const c = store.customers.find(cust => cust.id === id);
+            if (!c) return;
+
+            editingCustomerId = id;
+            document.getElementById('customer-modal-title').innerText = "Edit Customer Profile";
+            document.getElementById('save-customer-btn').innerText = "Update Profile";
+
+            document.getElementById('cust-name').value = c.name;
+            document.getElementById('cust-mobile').value = c.mobile || '';
+            document.getElementById('cust-email').value = c.email || '';
+            document.getElementById('cust-credit').value = (c.storeCredit || 0).toFixed(2);
+            document.getElementById('cust-address').value = c.address || '';
+            document.getElementById('cust-notes').value = c.notes || '';
+
+            document.getElementById('customer-modal').classList.remove('hidden');
+        }
+
+        function closeCustomerModal() {
+            document.getElementById('customer-modal').classList.add('hidden');
+            editingCustomerId = null;
+        }
+
+        function saveCustomer() {
+            const name = document.getElementById('cust-name').value.trim();
+            const mobile = document.getElementById('cust-mobile').value.trim();
+            const email = document.getElementById('cust-email').value.trim();
+            const credit = parseFloat(document.getElementById('cust-credit').value) || 0;
+            const address = document.getElementById('cust-address').value.trim();
+            const notes = document.getElementById('cust-notes').value.trim();
+
+            if (!name || !mobile) {
+                alert("Please fill in Customer Name and Mobile fields.");
+                return;
+            }
+
+            if (editingCustomerId) {
+                const c = store.customers.find(cust => cust.id === editingCustomerId);
+                if (c) {
+                    c.name = name;
+                    c.mobile = mobile;
+                    c.email = email;
+                    c.storeCredit = credit;
+                    c.address = address;
+                    c.notes = notes;
+                }
+                editingCustomerId = null;
+                alert("Customer profile updated successfully!");
+            } else {
+                const newCust = {
+                    id: Date.now().toString(),
+                    name,
+                    mobile,
+                    email: email || "",
+                    address,
+                    notes: notes || "",
+                    loyaltyPoints: 0,
+                    storeCredit: credit
+                };
+                store.customers.push(newCust);
+                alert("Customer registered successfully!");
+            }
+
+            saveLocalDatabase();
+            closeCustomerModal();
+            loadCustomersGrid();
+            clearCustomerInputs();
         }
 
         function deleteCustomer(id) {
@@ -1932,20 +2185,45 @@
         }
 
         // TAB 5: EXPENSES LEDGER
+        function populateExpensesCategories() {
+            const selectEl = document.getElementById('expenses-category-select');
+            if (!selectEl) return;
+            const currentVal = selectEl.value;
+            selectEl.innerHTML = '<option value="ALL">All Categories</option>';
+            const cats = [...new Set(store.expenses.map(e => e.category).filter(Boolean))];
+            cats.forEach(c => {
+                selectEl.innerHTML += `<option value="${c}">${c}</option>`;
+            });
+            if (cats.includes(currentVal)) {
+                selectEl.value = currentVal;
+            }
+        }
+
         function loadExpensesTable() {
             const table = document.getElementById('expenses-table-rows');
             table.innerHTML = '';
 
-            if (store.expenses.length === 0) {
+            const query = document.getElementById('expenses-search-input')?.value.toLowerCase() || '';
+            const cat = document.getElementById('expenses-category-select')?.value || 'ALL';
+
+            const filtered = store.expenses.filter(e => {
+                const matchQuery = e.title.toLowerCase().includes(query) || 
+                                   (e.notes || '').toLowerCase().includes(query) || 
+                                   e.category.toLowerCase().includes(query);
+                const matchCat = cat === 'ALL' || e.category === cat;
+                return matchQuery && matchCat;
+            });
+
+            if (filtered.length === 0) {
                 table.innerHTML = `
                     <tr>
-                        <td colspan="6" class="px-6 py-12 text-center text-slate-400 text-sm">No expenses recorded yet.</td>
+                        <td colspan="6" class="px-6 py-12 text-center text-slate-400 text-sm">No expenses matching current filters.</td>
                     </tr>
                 `;
                 return;
             }
 
-            store.expenses.forEach(e => {
+            filtered.forEach(e => {
                 table.innerHTML += `
                     <tr class="hover:bg-slate-50 transition duration-150">
                         <td class="px-6 py-4 font-bold text-slate-900">${e.title}</td>
@@ -1970,10 +2248,10 @@
         }
 
         function saveExpense() {
-            const title = document.getElementById('exp-title').value;
-            const category = document.getElementById('exp-category').value;
+            const title = document.getElementById('exp-title').value.trim();
+            const category = document.getElementById('exp-category').value.trim();
             const amount = parseFloat(document.getElementById('exp-amount').value) || 0;
-            const notes = document.getElementById('exp-notes').value;
+            const notes = document.getElementById('exp-notes').value.trim();
 
             if (!title || amount <= 0) {
                 alert("Please enter a valid title and amount spent.");
@@ -1992,6 +2270,7 @@
             store.expenses.push(newExp);
             saveLocalDatabase();
             closeExpenseModal();
+            populateExpensesCategories();
             loadExpensesTable();
 
             // Clear inputs
@@ -2005,6 +2284,7 @@
             if (confirm("Are you sure you want to delete this expense record?")) {
                 store.expenses = store.expenses.filter(e => e.id !== id);
                 saveLocalDatabase();
+                populateExpensesCategories();
                 loadExpensesTable();
             }
         }
@@ -2097,6 +2377,18 @@
             
             document.getElementById('gdrive-client-id').value = savedClientId;
             document.getElementById('gdrive-client-secret').value = savedClientSecret;
+
+            // Restore shop profile information
+            if (!store.config) {
+                store.config = {
+                    shopName: "SMART CASH MEMO CORP",
+                    address: "Central Commercial Hub, Store #4",
+                    mobile: "+1 (555) 019-2834"
+                };
+            }
+            document.getElementById('shop-profile-name').value = store.config.shopName || '';
+            document.getElementById('shop-profile-address').value = store.config.address || '';
+            document.getElementById('shop-profile-mobile').value = store.config.mobile || '';
 
             // Session updates
             updateOAuthSessionUI();
@@ -2408,6 +2700,184 @@
                 return;
             }
             listGoogleDriveBackups();
+        }
+
+        // SHOP PROFILE MANAGEMENT
+        function saveShopProfile() {
+            const name = document.getElementById('shop-profile-name').value.trim();
+            const address = document.getElementById('shop-profile-address').value.trim();
+            const mobile = document.getElementById('shop-profile-mobile').value.trim();
+
+            if (!name) {
+                alert("Shop/Business name is required to customize invoices.");
+                return;
+            }
+
+            if (!store.config) store.config = {};
+            store.config.shopName = name;
+            store.config.address = address || "Central Business District";
+            store.config.mobile = mobile || "N/A";
+
+            saveLocalDatabase();
+            alert("Shop Business Profile updated successfully! All receipts and professional PDFs are now configured.");
+            loadSettingsPage();
+        }
+
+        // OFFLINE FILE SYSTEM DATABASE BACKUP (JSON)
+        function downloadLocalBackup() {
+            try {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(store, null, 4));
+                const downloadAnchor = document.createElement('a');
+                downloadAnchor.setAttribute("href", dataStr);
+                const stamp = new Date().toISOString().slice(0,10);
+                downloadAnchor.setAttribute("download", `smart_cash_memo_offline_backup_${stamp}.json`);
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+            } catch (e) {
+                alert("Failed to export offline database: " + e.message);
+            }
+        }
+
+        function restoreFromLocalFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data && data.products && data.customers && data.expenses && data.invoices) {
+                        if (confirm("Restore from offline backup? This will overwrite your entire existing store inventory, customers list, and sales records!")) {
+                            store = data;
+                            saveLocalDatabase();
+                            alert("Offline database restored successfully! Updating tables...");
+                            
+                            // Reload all tabs/views
+                            loadDashboard();
+                            populateInventoryCategories();
+                            loadProductsTable();
+                            loadCustomersGrid();
+                            populateExpensesCategories();
+                            loadExpensesTable();
+                            loadSettingsPage();
+                        }
+                    } else {
+                        alert("Invalid backup file structure. Ensure the file was generated by Smart Cash Memo.");
+                    }
+                } catch (err) {
+                    alert("Failed to parse JSON backup file: " + err.message);
+                }
+            };
+            reader.readAsText(file);
+            // Reset input so file change event fires if user selects same file again
+            event.target.value = '';
+        }
+
+        // GENERIC EXCEL-COMPATIBLE CSV EXPORT ENGINE (RFC 4180 COMPLIANT)
+        function exportToCSV(filename, headers, rows) {
+            const escapeCSVCell = (val) => {
+                if (val === null || val === undefined) return '';
+                let str = String(val);
+                // If contains double quotes, commas, or newlines, wrap in quotes and escape internal quotes
+                if (str.includes('"') || str.includes(',') || str.includes('\n') || str.includes('\r')) {
+                    str = '"' + str.replace(/"/g, '""') + '"';
+                }
+                return str;
+            };
+
+            let csvContent = headers.map(escapeCSVCell).join(",") + "\r\n";
+            rows.forEach(row => {
+                csvContent += row.map(escapeCSVCell).join(",") + "\r\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function exportInvoicesToCSV() {
+            const headers = ["Invoice ID", "Date Time", "Customer Name", "Customer Mobile", "Customer Email", "Customer Address", "Subtotal ($)", "Discount (%)", "Discount Amt ($)", "Tax Amt ($)", "Grand Total ($)", "Paid Amt ($)", "Balance Due ($)"];
+            const rows = store.invoices.map(inv => {
+                const date = new Date(inv.date).toLocaleString();
+                const due = Math.max(0, inv.grandTotal - (inv.paidAmount || 0));
+                return [
+                    inv.invoiceId,
+                    date,
+                    inv.customerName || 'Walk-In',
+                    inv.customerMobile || '',
+                    inv.customerEmail || '',
+                    inv.customerAddress || '',
+                    inv.subtotal.toFixed(2),
+                    inv.discountPercentage.toFixed(1),
+                    inv.discountAmount.toFixed(2),
+                    inv.taxAmount.toFixed(2),
+                    inv.grandTotal.toFixed(2),
+                    (inv.paidAmount || 0).toFixed(2),
+                    due.toFixed(2)
+                ];
+            });
+            const stamp = new Date().toISOString().slice(0,10);
+            exportToCSV(`cash_memos_sales_report_${stamp}.csv`, headers, rows);
+        }
+
+        function exportExpensesToCSV() {
+            const headers = ["Expense ID", "Date", "Expense Title", "Category", "Amount Spent ($)", "Explanations / Notes"];
+            const rows = store.expenses.map(e => {
+                const date = new Date(e.date).toLocaleDateString();
+                return [
+                    e.id,
+                    date,
+                    e.title,
+                    e.category,
+                    e.amount.toFixed(2),
+                    e.notes || ''
+                ];
+            });
+            const stamp = new Date().toISOString().slice(0,10);
+            exportToCSV(`operating_expenses_${stamp}.csv`, headers, rows);
+        }
+
+        function exportProductsToCSV() {
+            const headers = ["Product ID", "SKU", "Product Name", "Category", "Purchase Price ($)", "Selling Price ($)", "Quantity In Stock", "Barcode Number"];
+            const rows = store.products.map(p => {
+                return [
+                    p.id,
+                    p.sku,
+                    p.name,
+                    p.category,
+                    p.purchasePrice.toFixed(2),
+                    p.sellingPrice.toFixed(2),
+                    p.quantity,
+                    p.barcode || ''
+                ];
+            });
+            const stamp = new Date().toISOString().slice(0,10);
+            exportToCSV(`store_inventory_list_${stamp}.csv`, headers, rows);
+        }
+
+        function exportCustomersToCSV() {
+            const headers = ["Customer ID", "Customer Name", "Mobile Phone", "Email Address", "Home Address", "Loyalty Points", "Store Credit ($)", "Profile Notes"];
+            const rows = store.customers.map(c => {
+                return [
+                    c.id,
+                    c.name,
+                    c.mobile || '',
+                    c.email || '',
+                    c.address || '',
+                    c.loyaltyPoints || 0,
+                    (c.storeCredit || 0).toFixed(2),
+                    c.notes || ''
+                ];
+            });
+            const stamp = new Date().toISOString().slice(0,10);
+            exportToCSV(`customers_accounts_ledger_${stamp}.csv`, headers, rows);
         }
 
         // Initialize application
